@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
-import 'package:todo_app/src/features/todo/application/todo_list_service.dart';
 import 'package:todo_app/src/features/todo/data/todo_repository.dart';
 import 'package:todo_app/src/features/todo/domain/todo.dart';
 import 'package:todo_app/src/features/todo/presentation/todo_list/todo_list_screen_controller.dart';

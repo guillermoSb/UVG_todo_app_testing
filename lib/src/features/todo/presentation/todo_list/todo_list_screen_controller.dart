@@ -6,12 +6,11 @@ part 'todo_list_screen_controller.g.dart';
 
 @riverpod
 class TodoListScreenController extends _$TodoListScreenController {
-  TodoListScreenController() : super();
   @override
-  FutureOr<void> build() => {}; // No implementation
+  FutureOr<void> build() {} // No implementation
 
   /// Toggles the completion status of a [Todo].
-  void toggleTodo(Todo todo) async {
+  Future<void> toggleTodo(Todo todo) async {
     state = const AsyncLoading();
     final newTodo = todo.copyWith(completed: !todo.completed);
     state = await AsyncValue.guard(
@@ -20,7 +19,7 @@ class TodoListScreenController extends _$TodoListScreenController {
   }
 
   /// Deletes a [Todo].
-  void delete(Todo todo) async {
+  Future<void> delete(Todo todo) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
       () => ref.read(todoListServiceProvider.notifier).deleteTodo(todo),

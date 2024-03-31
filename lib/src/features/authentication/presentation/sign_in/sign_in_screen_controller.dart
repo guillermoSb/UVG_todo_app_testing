@@ -6,9 +6,10 @@ part 'sign_in_screen_controller.g.dart';
 
 @riverpod
 class SignInScreenController extends _$SignInScreenController {
-  SignInScreenController() : super();
   @override
-  FutureOr<void> build() => {}; // No implementation
+  FutureOr<void> build() {
+    // nothing to
+  }
 
   Future<bool> submit({
     required String email,
