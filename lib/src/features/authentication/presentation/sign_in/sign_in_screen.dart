@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/src/constants/app_sizes.dart';
 import 'package:todo_app/src/features/authentication/presentation/sign_in/auth_form_type.dart';
 import 'package:todo_app/src/features/authentication/presentation/sign_in/auth_form_validators.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/src/features/authentication/presentation/sign_in/sign_in_screen_controller.dart';
+import 'package:todo_app/src/utils/async_ui.dart';
 
 /// User Sign In Screen.
 class SignInScreen extends StatelessWidget {
@@ -50,6 +52,9 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(signInScreenControllerProvider,
+        (_, state) => state.showAlertDialogOnError(context));
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
       child: Form(
@@ -75,8 +80,8 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm>
               validator: (value) =>
                   _submitted ? passwordErrorText(value ?? '') : null,
             ),
-            gapH12,
-            ElevatedButton(
+            gapH24,
+            CupertinoButton.filled(
               key: AuthenticationForm.buttonKey,
               onPressed: () async {
                 setState(() => _submitted = true);
@@ -94,7 +99,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm>
               child: Text(_authFormType.title),
             ),
             gapH12,
-            TextButton(
+            CupertinoButton(
               onPressed: () {
                 setState(() {
                   _authFormType = _authFormType.opposite;
