@@ -24,11 +24,14 @@ void main() {
       final robot = AuthRobot(tester);
       await robot.pumpAuthForm(
           formType: AuthFormType.signIn, authRepository: authRepository);
+      when(() => authRepository.signInWithEmailAndPassword(any(), any()))
+          .thenAnswer((_) => Future.value(null));
       // Act
       await robot.tapAuthButton();
       // Assert
       verifyNever(
           () => authRepository.signInWithEmailAndPassword(any(), any()));
+      robot.expectErrorAlertNotFound();
     });
 
     testWidgets('''
@@ -40,6 +43,8 @@ void main() {
       final robot = AuthRobot(tester);
       await robot.pumpAuthForm(
           formType: AuthFormType.signIn, authRepository: authRepository);
+      when(() => authRepository.signInWithEmailAndPassword(any(), any()))
+          .thenAnswer((_) => Future.value(null));
       // Act
       await robot.fillEmail(testEmail);
       await robot.fillPassword(testPassword);
@@ -47,6 +52,7 @@ void main() {
       // Assert
       verify(() => authRepository.signInWithEmailAndPassword(
           testEmail, testPassword)).called(1);
+      robot.expectErrorAlertNotFound();
     });
 
     testWidgets('''
@@ -65,6 +71,26 @@ void main() {
       // Assert
       verifyNever(
           () => authRepository.signInWithEmailAndPassword(any(), any()));
+      robot.expectErrorAlertNotFound();
+    });
+
+    testWidgets('''
+    Given - user sign in fails.
+    When - user taps on sign in button.
+    Then - an error alert is displayed
+    ''', (tester) async {
+      // Arrange
+      final robot = AuthRobot(tester);
+      await robot.pumpAuthForm(
+          formType: AuthFormType.signIn, authRepository: authRepository);
+      when(() => authRepository.signInWithEmailAndPassword(any(), any()))
+          .thenThrow(Exception());
+      // Act
+      await robot.fillEmail(testEmail);
+      await robot.fillPassword(testPassword);
+      await robot.tapAuthButton();
+      // Assert
+      robot.expectErrorAlertFound();
     });
   });
 
@@ -94,6 +120,8 @@ void main() {
       final robot = AuthRobot(tester);
       await robot.pumpAuthForm(
           formType: AuthFormType.signUp, authRepository: authRepository);
+      when(() => authRepository.signUpWithEmailAndPassword(any(), any()))
+          .thenAnswer((_) => Future.value(null));
       // Act
       await robot.fillEmail(testEmail);
       await robot.fillPassword(testPassword);
@@ -101,6 +129,7 @@ void main() {
       // Assert
       verify(() => authRepository.signUpWithEmailAndPassword(
           testEmail, testPassword)).called(1);
+      robot.expectErrorAlertNotFound();
     });
 
     testWidgets('''
@@ -119,6 +148,7 @@ void main() {
       // Assert
       verifyNever(
           () => authRepository.signUpWithEmailAndPassword(any(), any()));
+      robot.expectErrorAlertNotFound();
     });
   });
 }

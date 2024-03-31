@@ -49,4 +49,15 @@ class AuthRobot {
     await tester.tap(signInButton);
     await tester.pumpAndSettle();
   }
+
+  /// Expect to find an alert with Error on its title.
+  void expectErrorAlertFound() {
+    final finder = find.text('Error');
+    expect(finder, findsOneWidget);
+  }
+
+  void expectErrorAlertNotFound() {
+    final finder = find.text('Error');
+    expect(finder, findsNothing);
+  }
 }
