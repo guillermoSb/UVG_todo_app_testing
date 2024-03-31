@@ -3,28 +3,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
 import 'package:todo_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:todo_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
+import 'package:todo_app/src/router/app_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(
+    overrides: [authRepositoryProvider.overrideWithValue(FakeAuthRepository())],
+    child: const MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      overrides: [
-        authRepositoryProvider.overrideWithValue(FakeAuthRepository())
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-          useMaterial3: true,
-        ),
-        home: const SignInScreen(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appRouter = ref.watch(appRouterProvider);
+    return MaterialApp.router(
+      routerConfig: appRouter,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
       ),
     );
   }

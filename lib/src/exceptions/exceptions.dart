@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 /// Custom [Exception] class for handling exceptions in the app.
 class AppException implements Exception {
   final String message;
