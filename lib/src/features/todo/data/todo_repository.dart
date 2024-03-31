@@ -1,5 +1,8 @@
+import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
 import 'package:todo_app/src/features/authentication/domain/app_user.dart';
 import 'package:todo_app/src/features/todo/domain/todo.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'todo_repository.g.dart';
 
 /// Repository for [Todo] entities.
 class TodoRepository {
@@ -31,4 +34,16 @@ class TodoRepository {
   ) {
     throw UnimplementedError();
   }
+}
+
+@Riverpod(keepAlive: true)
+TodoRepository todoRepository(TodoRepositoryRef ref) => TodoRepository();
+
+@riverpod
+Stream<List<Todo>> todoStream(TodoStreamRef ref) {
+  final user = ref.read(authRepositoryProvider).currentUser;
+  if (user == null) {
+    throw StateError('User is not authenticated');
+  }
+  return ref.read(todoRepositoryProvider).watchTodos(user.id);
 }

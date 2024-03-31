@@ -12,7 +12,7 @@ class Todo {
     required this.id,
     required this.title,
     required this.completed,
-    required this.dueDate,
+    this.dueDate,
   });
 
   @override
