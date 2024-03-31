@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
+import 'package:todo_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:todo_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 
 void main() {
@@ -13,6 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
+      overrides: [
+        authRepositoryProvider.overrideWithValue(FakeAuthRepository())
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

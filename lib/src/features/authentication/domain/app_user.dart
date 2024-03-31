@@ -3,7 +3,7 @@ typedef UserID = String;
 
 /// Representation for the user entity.
 class AppUser {
-  AppUser({required this.id, required this.email});
+  const AppUser({required this.id, required this.email});
   final UserID id;
   final String email;
 
