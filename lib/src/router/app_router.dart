@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
 import 'package:todo_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
+import 'package:todo_app/src/features/todo/presentation/todo_list/todo_list_screen.dart';
 import 'package:todo_app/src/router/go_router_refresh_stream.dart';
 part 'app_router.g.dart';
 
@@ -36,7 +37,7 @@ GoRouter appRouter(AppRouterRef ref) {
         path: '/',
         name: AppRoute.home.name,
         pageBuilder: (context, state) {
-          return MaterialPage(child: Container());
+          return const MaterialPage(child: TodoListScreen());
         },
       ),
       // Sign In
