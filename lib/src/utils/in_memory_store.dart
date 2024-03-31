@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:rxdart/rxdart.dart';
 
 /// In-memory store to hold a single value [T].

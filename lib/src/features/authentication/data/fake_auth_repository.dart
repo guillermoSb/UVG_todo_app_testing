@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:todo_app/src/exceptions/exceptions.dart';
 import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
 import 'package:todo_app/src/features/authentication/data/fake_app_user.dart';

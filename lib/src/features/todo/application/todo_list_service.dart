@@ -10,6 +10,7 @@ part 'todo_list_service.g.dart';
 class TodoListService extends _$TodoListService {
   @override
   void build() => {}; // No implementation
+
   /// Updates a [Todo].
   Future<void> updateTodo(Todo todo) async {
     final currentUser = ref.read(authRepositoryProvider).currentUser;

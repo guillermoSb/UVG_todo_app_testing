@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
 import 'package:todo_app/src/features/authentication/domain/app_user.dart';
 import 'package:todo_app/src/features/todo/domain/todo.dart';
