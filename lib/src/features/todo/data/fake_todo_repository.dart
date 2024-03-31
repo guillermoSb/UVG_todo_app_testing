@@ -21,12 +21,14 @@ class FakeTodoRepository implements TodoRepository {
   @override
   Future<void> deleteTodo(UserID userId, Todo todo) async {
     _store.value.remove(todo);
+    _store.value = _store.value;
   }
 
   @override
   Future<void> updateTodo(UserID userId, Todo todo) async {
     final index = _store.value.indexWhere((element) => element.id == todo.id);
     _store.value[index] = todo;
+    _store.value = _store.value;
   }
 
   @override
