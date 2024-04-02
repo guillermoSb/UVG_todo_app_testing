@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_app/src/constants/app_sizes.dart';
 import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
 import 'package:todo_app/src/features/todo/data/todo_repository.dart';
 import 'package:todo_app/src/features/todo/domain/todo.dart';
+import 'package:todo_app/src/features/todo/presentation/todo_form/todo_form.dart';
 import 'package:todo_app/src/features/todo/presentation/todo_list/todo_list_screen_controller.dart';
 
 /// Main application screen.
@@ -27,7 +29,34 @@ class TodoListScreen extends ConsumerWidget {
         ),
         body: const TodoListContents(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              // backgroundColor: Colors.black,
+              context: context,
+              builder: (context) {
+                return const SizedBox(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: Sizes.p12),
+                          child: SizedBox(
+                            width: 50,
+                            child: Divider(
+                              thickness: 5.0,
+                            ),
+                          ),
+                        ),
+                        gapH32,
+                        TodoForm()
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
           child: const Icon(Icons.add),
         ));
   }
