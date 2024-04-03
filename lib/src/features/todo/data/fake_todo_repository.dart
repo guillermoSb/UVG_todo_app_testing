@@ -5,7 +5,7 @@ import 'package:todo_app/src/utils/in_memory_store.dart';
 
 const fakeTodos = [
   Todo(id: '1', title: 'Buy milk', completed: false),
-  Todo(id: '2', title: 'Buy eggs', completed: true),
+  Todo(id: '2', title: 'Buy eggs', completed: false),
   Todo(id: '3', title: 'Buy bread', completed: false),
 ];
 

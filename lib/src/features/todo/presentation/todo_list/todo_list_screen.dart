@@ -94,6 +94,7 @@ class TodoListItems extends ConsumerWidget {
               todo.title,
             ),
             leading: Checkbox(
+              key: Key('todo_checkbox_$index'),
               value: todo.completed,
               onChanged: (value) {
                 ref

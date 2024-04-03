@@ -28,15 +28,29 @@ class TodoRobot {
     ));
   }
 
+  /// Deletes todo by [index]
+  Future<void> deleteTodo(int index) async {
+    final key = Key('delete_todo_button_$index');
+    await tester.tap(find.byKey(key));
+    await tester.pumpAndSettle();
+  }
+
+  /// Taps the checkbox of the todo by [index]
+  Future<void> tapTodoCheckbox(int index) async {
+    final key = Key('todo_checkbox_$index');
+    await tester.tap(find.byKey(key));
+    await tester.pumpAndSettle();
+  }
+
   /// Expect to find [n] todos in the list
   void expectFindNTodos(int n) {
     expect(find.byType(ListTile), findsNWidgets(n));
   }
 
-  /// Deletes todo by index
-  Future<void> deleteTodo(int n) async {
-    final key = Key('delete_todo_button_$n');
-    await tester.tap(find.byKey(key));
-    await tester.pumpAndSettle();
+  /// Expect the checkbox of the todo by [index] to be checked
+  void expectCheckBoxChecked(int index, bool checked) {
+    final key = Key('todo_checkbox_$index');
+    final checkbox = tester.widget<Checkbox>(find.byKey(key));
+    expect(checkbox.value, checked);
   }
 }

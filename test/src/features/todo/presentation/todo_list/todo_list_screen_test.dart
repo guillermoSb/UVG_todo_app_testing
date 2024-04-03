@@ -6,10 +6,10 @@ void main() {
   setUp(() {});
   group('Todo List Screen', () {
     testWidgets('''
-    Given - User has 3 tasks
-    When - Screen appears
-    Then - 3 tasks are shown
-    ''', (tester) async {
+      Given - User has 3 tasks
+      When - Screen appears
+      Then - 3 tasks are shown
+      ''', (tester) async {
       // Arrange
       final robot = Robot(tester);
       await robot.pumpMyAppWithFakes();
@@ -35,6 +35,20 @@ void main() {
       robot.todo.expectFindNTodos(2);
     });
 
-    // TODO: Mark a todo as done
+    testWidgets('''
+    Given - User has 3 tasks
+    When - User checks one task
+    Then - Task is marked as completed
+    ''', (tester) async {
+      // Arrange
+      final robot = Robot(tester);
+      await robot.pumpMyAppWithFakes();
+      // Act
+      await robot.auth.loginWithCredentials('test@test.com', '123456');
+      robot.todo.expectFindNTodos(3);
+      await robot.todo.tapTodoCheckbox(0);
+      // Assert
+      robot.todo.expectCheckBoxChecked(0, true);
+    });
   });
 }
