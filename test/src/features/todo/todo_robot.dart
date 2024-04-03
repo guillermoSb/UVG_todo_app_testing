@@ -27,4 +27,16 @@ class TodoRobot {
       ),
     ));
   }
+
+  /// Expect to find [n] todos in the list
+  void expectFindNTodos(int n) {
+    expect(find.byType(ListTile), findsNWidgets(n));
+  }
+
+  /// Deletes todo by index
+  Future<void> deleteTodo(int n) async {
+    final key = Key('delete_todo_button_$n');
+    await tester.tap(find.byKey(key));
+    await tester.pumpAndSettle();
+  }
 }

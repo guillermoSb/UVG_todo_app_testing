@@ -28,6 +28,14 @@ class AuthRobot {
     );
   }
 
+  /// Fills the email and password fields.
+  Future<void> loginWithCredentials(String email, String password) async {
+    await fillEmail(email);
+    await fillPassword(password);
+    await tapAuthButton();
+    await tester.pumpAndSettle();
+  }
+
   /// Fills the email
   Future<void> fillEmail(String email) async {
     final emailField = find.widgetWithText(TextFormField, 'Email');

@@ -1,20 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
-import 'package:todo_app/src/features/authentication/data/fake_auth_repository.dart';
-import 'package:todo_app/src/features/todo/data/fake_todo_repository.dart';
-import 'package:todo_app/src/features/todo/data/todo_repository.dart';
 
-import '../../../../../mocks.dart';
-import '../../todo_robot.dart';
+import '../../../../robot.dart';
 
 void main() {
-  late final todoRepository;
-  late final authRepository;
-
-  setUp(() {
-    todoRepository = MockTodoRepository();
-    authRepository = MockAuthRepository();
-  });
+  setUp(() {});
   group('Todo List Screen', () {
     testWidgets('''
     Given - User has 3 tasks
@@ -22,10 +11,30 @@ void main() {
     Then - 3 tasks are shown
     ''', (tester) async {
       // Arrange
-      final robot = TodoRobot(tester);
-      await robot.pumpTodoListScreen(todoRepository, authRepository);
+      final robot = Robot(tester);
+      await robot.pumpMyAppWithFakes();
       // Act
-      // Assert
+      await robot.auth.loginWithCredentials('test@test.com', '123456');
+      // Log widget tree
+      robot.todo.expectFindNTodos(3);
     });
+
+    testWidgets('''
+    Given - User has 3 tasks
+    When - User deletes one task
+    Then - 2 tasks are shown
+    ''', (tester) async {
+      // Arrange
+      final robot = Robot(tester);
+      await robot.pumpMyAppWithFakes();
+      // Act
+      await robot.auth.loginWithCredentials('test@test.com', '123456');
+      robot.todo.expectFindNTodos(3);
+      await robot.todo.deleteTodo(0);
+      // Assert
+      robot.todo.expectFindNTodos(2);
+    });
+
+    // TODO: Mark a todo as done
   });
 }

@@ -102,6 +102,7 @@ class TodoListItems extends ConsumerWidget {
               },
             ),
             trailing: IconButton(
+              key: Key('delete_todo_button_$index'),
               icon: const Icon(Icons.delete),
               onPressed: () {
                 ref
