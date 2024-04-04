@@ -12,7 +12,7 @@ void main() {
       authRepositoryProvider
           .overrideWithValue(FakeAuthRepository(addDelay: true)),
       todoRepositoryProvider
-          .overrideWithValue(FakeTodoRepository(addDelay: true))
+          .overrideWithValue(FakeTodoRepository(addDelay: false))
     ],
     child: const MyApp(),
   ));
