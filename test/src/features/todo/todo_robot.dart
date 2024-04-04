@@ -42,6 +42,29 @@ class TodoRobot {
     await tester.pumpAndSettle();
   }
 
+  /// Tap on floating_button
+  Future<void> tapFloatingButton() async {
+    const key = Key('floating_button');
+    await tester.tap(find.byKey(key));
+    await tester.pumpAndSettle();
+  }
+
+  /// Fill todo_text_field
+  Future<void> fillTodoTitle(String title) async {
+    final todoField = find.widgetWithText(TextFormField, 'Todo');
+    expect(todoField, findsOneWidget);
+    await tester.enterText(todoField, title);
+    await tester.pumpAndSettle();
+  }
+
+  /// Tap on save button
+  Future<void> tapOnSaveButton() async {
+    final saveButon = find.widgetWithText(ElevatedButton, 'Save');
+    expect(saveButon, findsOneWidget);
+    await tester.tap(saveButon);
+    await tester.pumpAndSettle();
+  }
+
   /// Expect to find [n] todos in the list
   void expectFindNTodos(int n) {
     expect(find.byType(ListTile), findsNWidgets(n));

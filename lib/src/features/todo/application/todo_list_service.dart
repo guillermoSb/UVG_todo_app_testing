@@ -15,13 +15,20 @@ class TodoListService extends _$TodoListService {
   Future<void> updateTodo(Todo todo) async {
     final currentUser = ref.read(authRepositoryProvider).currentUser;
     if (currentUser == null) throw StateError('User is not authenticated');
-    return ref.read(todoRepositoryProvider).updateTodo(currentUser.id, todo);
+    await ref.read(todoRepositoryProvider).updateTodo(currentUser.id, todo);
   }
 
   /// Deletes a [Todo].
   Future<void> deleteTodo(Todo todo) async {
     final currentUser = ref.read(authRepositoryProvider).currentUser;
     if (currentUser == null) throw StateError('User is not authenticated');
-    return ref.read(todoRepositoryProvider).deleteTodo(currentUser.id, todo);
+    await ref.read(todoRepositoryProvider).deleteTodo(currentUser.id, todo);
+  }
+
+  /// Creates a [Todo]
+  Future<void> createTodo(Todo todo) async {
+    final currentUser = ref.read(authRepositoryProvider).currentUser;
+    if (currentUser == null) throw StateError('User is not authenticated');
+    await ref.read(todoRepositoryProvider).createTodo(currentUser.id, todo);
   }
 }

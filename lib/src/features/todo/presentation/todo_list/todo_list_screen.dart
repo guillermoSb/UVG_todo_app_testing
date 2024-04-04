@@ -18,6 +18,7 @@ class TodoListScreen extends ConsumerWidget {
           title: const Text('Todo List'),
           actions: [
             IconButton(
+              key: const Key('sign_out'),
               icon: const Icon(Icons.logout),
               onPressed: () {
                 ref
@@ -29,6 +30,7 @@ class TodoListScreen extends ConsumerWidget {
         ),
         body: const TodoListContents(),
         floatingActionButton: FloatingActionButton(
+          key: const Key('floating_button'),
           onPressed: () {
             showModalBottomSheet(
               // backgroundColor: Colors.black,
@@ -85,19 +87,19 @@ class TodoListItems extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(todoListScreenControllerProvider);
     return ListView.builder(
       itemBuilder: (context, index) {
         final todo = todos[index];
         return ListTile(
-            onTap: () {},
             title: Text(
               todo.title,
             ),
             leading: Checkbox(
               key: Key('todo_checkbox_$index'),
               value: todo.completed,
-              onChanged: (value) {
-                ref
+              onChanged: (value) async {
+                await ref
                     .read(todoListScreenControllerProvider.notifier)
                     .toggleTodo(todo);
               },

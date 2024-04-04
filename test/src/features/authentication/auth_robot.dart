@@ -58,6 +58,19 @@ class AuthRobot {
     await tester.pumpAndSettle();
   }
 
+  /// Tap on sign out button
+  Future<void> tapSignOutButton() async {
+    final signOutButton = find.byKey(const Key('sign_out'));
+    expect(signOutButton, findsOneWidget);
+    await tester.tap(signOutButton);
+    await tester.pumpAndSettle();
+  }
+
+  void expectSignInText() {
+    final finder = find.text('Sign In');
+    expect(finder, findsAny);
+  }
+
   /// Expect to find an alert with Error on its title.
   void expectErrorAlertFound() {
     final finder = find.text('Error');

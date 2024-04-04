@@ -10,8 +10,10 @@ import 'package:todo_app/src/router/app_router.dart';
 void main() {
   runApp(ProviderScope(
     overrides: [
-      authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
-      todoRepositoryProvider.overrideWithValue(FakeTodoRepository())
+      authRepositoryProvider
+          .overrideWithValue(FakeAuthRepository(addDelay: true)),
+      todoRepositoryProvider
+          .overrideWithValue(FakeTodoRepository(addDelay: true))
     ],
     child: const MyApp(),
   ));
@@ -26,6 +28,7 @@ class MyApp extends ConsumerWidget {
     final appRouter = ref.watch(appRouterProvider);
     return MaterialApp.router(
       routerConfig: appRouter,
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),

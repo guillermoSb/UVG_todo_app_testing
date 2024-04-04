@@ -17,6 +17,7 @@ class SignInScreenController extends _$SignInScreenController {
     required AuthFormType formType,
   }) async {
     // Choose the method to call based on the form type.
+    state = const AsyncLoading();
     if (formType == AuthFormType.signIn) {
       state = await AsyncValue.guard(() => ref
           .read(authRepositoryProvider)

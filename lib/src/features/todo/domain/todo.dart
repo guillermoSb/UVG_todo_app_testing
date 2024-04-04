@@ -3,21 +3,19 @@ typedef TodoId = String;
 
 /// Domain representation of a Todo
 class Todo {
-  final TodoId id;
+  final TodoId? id;
   final String title;
   final bool completed;
-  final DateTime? dueDate;
 
   const Todo({
-    required this.id,
+    this.id,
     required this.title,
-    required this.completed,
-    this.dueDate,
+    this.completed = false,
   });
 
   @override
   String toString() {
-    return 'Todo(id: $id, title: $title, completed: $completed, dueDate: $dueDate)';
+    return 'Todo(id: $id, title: $title, completed: $completed, )';
   }
 
   @override
@@ -26,13 +24,12 @@ class Todo {
 
     return other.id == id &&
         other.title == title &&
-        other.completed == completed &&
-        other.dueDate == dueDate;
+        other.completed == completed;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ title.hashCode ^ completed.hashCode ^ dueDate.hashCode;
+    return id.hashCode ^ title.hashCode ^ completed.hashCode;
   }
 
   Todo copyWith({
@@ -42,10 +39,8 @@ class Todo {
     DateTime? dueDate,
   }) {
     return Todo(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      completed: completed ?? this.completed,
-      dueDate: dueDate ?? this.dueDate,
-    );
+        id: id ?? this.id,
+        title: title ?? this.title,
+        completed: completed ?? this.completed);
   }
 }
