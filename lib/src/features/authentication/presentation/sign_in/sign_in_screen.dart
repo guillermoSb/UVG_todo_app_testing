@@ -54,6 +54,7 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm>
   Widget build(BuildContext context) {
     ref.listen(signInScreenControllerProvider,
         (_, state) => state.showAlertDialogOnError(context));
+    final state = ref.watch(signInScreenControllerProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
@@ -81,33 +82,40 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm>
                   _submitted ? passwordErrorText(value ?? '') : null,
             ),
             gapH24,
-            CupertinoButton.filled(
-              key: AuthenticationForm.buttonKey,
-              onPressed: () async {
-                setState(() => _submitted = true);
-                if (_formKey.currentState?.validate() == false) return;
+            if (state.isLoading) const CircularProgressIndicator(),
+            if (!state.isLoading)
+              CupertinoButton.filled(
+                key: AuthenticationForm.buttonKey,
+                onPressed: state.isLoading
+                    ? null
+                    : () async {
+                        setState(() => _submitted = true);
+                        if (_formKey.currentState?.validate() == false) return;
 
-                final controller =
-                    ref.read(signInScreenControllerProvider.notifier);
+                        final controller =
+                            ref.read(signInScreenControllerProvider.notifier);
 
-                await controller.submit(
-                  email: _emailController.text,
-                  password: _passwordController.text,
-                  formType: _authFormType,
-                );
-              },
-              child: Text(_authFormType.title),
-            ),
+                        await controller.submit(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          formType: _authFormType,
+                        );
+                      },
+                child: Text(_authFormType.title),
+              ),
             gapH12,
-            CupertinoButton(
-              onPressed: () {
-                setState(() {
-                  _authFormType = _authFormType.opposite;
-                  _submitted = false;
-                });
-              },
-              child: Text(_authFormType.secondaryTitle),
-            ),
+            if (!state.isLoading)
+              CupertinoButton(
+                onPressed: state.isLoading
+                    ? null
+                    : () {
+                        setState(() {
+                          _authFormType = _authFormType.opposite;
+                          _submitted = false;
+                        });
+                      },
+                child: Text(_authFormType.secondaryTitle),
+              ),
           ],
         ),
       ),

@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sign_in_screen_controller.dart';
+part of 'todo_form_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$signInScreenControllerHash() =>
-    r'eccf11e4549917e1e95d7af79ef30a15e4acaa2b';
+String _$todoFormControllerHash() =>
+    r'b28885c7d62eeff13504ada66e78c28f7dce8da2';
 
-/// See also [SignInScreenController].
-@ProviderFor(SignInScreenController)
-final signInScreenControllerProvider =
-    AutoDisposeAsyncNotifierProvider<SignInScreenController, void>.internal(
-  SignInScreenController.new,
-  name: r'signInScreenControllerProvider',
+/// See also [TodoFormController].
+@ProviderFor(TodoFormController)
+final todoFormControllerProvider =
+    AutoDisposeAsyncNotifierProvider<TodoFormController, void>.internal(
+  TodoFormController.new,
+  name: r'todoFormControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$signInScreenControllerHash,
+      : _$todoFormControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SignInScreenController = AutoDisposeAsyncNotifier<void>;
+typedef _$TodoFormController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

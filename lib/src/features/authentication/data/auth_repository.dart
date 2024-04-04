@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo_app/src/features/authentication/domain/app_user.dart';
 

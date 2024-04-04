@@ -6,9 +6,10 @@ part 'sign_in_screen_controller.g.dart';
 
 @riverpod
 class SignInScreenController extends _$SignInScreenController {
-  SignInScreenController() : super();
   @override
-  FutureOr<void> build() => {}; // No implementation
+  FutureOr<void> build() {
+    // nothing to
+  }
 
   Future<bool> submit({
     required String email,
@@ -16,6 +17,7 @@ class SignInScreenController extends _$SignInScreenController {
     required AuthFormType formType,
   }) async {
     // Choose the method to call based on the form type.
+    state = const AsyncLoading();
     if (formType == AuthFormType.signIn) {
       state = await AsyncValue.guard(() => ref
           .read(authRepositoryProvider)

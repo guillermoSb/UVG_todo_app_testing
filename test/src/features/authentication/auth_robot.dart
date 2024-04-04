@@ -28,6 +28,14 @@ class AuthRobot {
     );
   }
 
+  /// Fills the email and password fields.
+  Future<void> loginWithCredentials(String email, String password) async {
+    await fillEmail(email);
+    await fillPassword(password);
+    await tapAuthButton();
+    await tester.pumpAndSettle();
+  }
+
   /// Fills the email
   Future<void> fillEmail(String email) async {
     final emailField = find.widgetWithText(TextFormField, 'Email');
@@ -48,6 +56,19 @@ class AuthRobot {
     expect(signInButton, findsOneWidget);
     await tester.tap(signInButton);
     await tester.pumpAndSettle();
+  }
+
+  /// Tap on sign out button
+  Future<void> tapSignOutButton() async {
+    final signOutButton = find.byKey(const Key('sign_out'));
+    expect(signOutButton, findsOneWidget);
+    await tester.tap(signOutButton);
+    await tester.pumpAndSettle();
+  }
+
+  void expectSignInText() {
+    final finder = find.text('Sign In');
+    expect(finder, findsAny);
   }
 
   /// Expect to find an alert with Error on its title.
