@@ -19,16 +19,29 @@ class Robot {
         auth = AuthRobot(tester);
 
   /// Pumps the application with fake data
-  Future<void> pumpMyAppWithFakes() async {
-    final container = await _createFakeContainer();
+  Future<void> pumpMyAppWithFakes({delay = false}) async {
+    final container = await _createFakeContainer(delay);
     await tester.pumpWidget(
         UncontrolledProviderScope(container: container, child: const MyApp()));
   }
 
+  /// Runs the full todo flow
+  Future<void> fullTodoFlow() async {
+    await auth.loginWithCredentials('test@test.com', '123456');
+    await todo.addTodo('Testing todo');
+    todo.expectFindNTodos(4);
+    await todo.tapTodoCheckbox(0);
+    todo.expectCheckBoxChecked(0, true);
+    await todo.deleteTodo(0);
+    todo.expectFindNTodos(3);
+    await auth.tapSignOutButton();
+    auth.expectSignInText();
+  }
+
   /// Creates a fake repository container
-  Future<ProviderContainer> _createFakeContainer() async {
-    final todoRepository = FakeTodoRepository();
-    final authRepository = FakeAuthRepository();
+  Future<ProviderContainer> _createFakeContainer(bool delay) async {
+    final todoRepository = FakeTodoRepository(addDelay: delay);
+    final authRepository = FakeAuthRepository(addDelay: delay);
     return ProviderContainer(overrides: [
       authRepositoryProvider.overrideWithValue(authRepository),
       todoRepositoryProvider.overrideWithValue(todoRepository),

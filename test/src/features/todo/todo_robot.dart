@@ -65,6 +65,13 @@ class TodoRobot {
     await tester.pumpAndSettle();
   }
 
+  /// Add a todo with [title]
+  Future<void> addTodo(String title) async {
+    await tapFloatingButton();
+    await fillTodoTitle(title);
+    await tapOnSaveButton();
+  }
+
   /// Expect to find [n] todos in the list
   void expectFindNTodos(int n) {
     expect(find.byType(ListTile), findsNWidgets(n));
