@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/src/features/authentication/data/auth_repository.dart';
@@ -6,11 +7,15 @@ import 'package:todo_app/src/features/todo/data/fake_todo_repository.dart';
 import 'package:todo_app/src/features/todo/data/todo_repository.dart';
 import 'package:todo_app/src/router/app_router.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(ProviderScope(
     overrides: [
-      authRepositoryProvider
-          .overrideWithValue(FakeAuthRepository(addDelay: true)),
       todoRepositoryProvider
           .overrideWithValue(FakeTodoRepository(addDelay: false))
     ],
