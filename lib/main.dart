@@ -17,7 +17,9 @@ void main() async {
   runApp(ProviderScope(
     overrides: [
       todoRepositoryProvider
-          .overrideWithValue(FakeTodoRepository(addDelay: false))
+          .overrideWithValue(FakeTodoRepository(addDelay: false)),
+      authRepositoryProvider
+          .overrideWithValue(FakeAuthRepository(addDelay: true)),
     ],
     child: const MyApp(),
   ));
