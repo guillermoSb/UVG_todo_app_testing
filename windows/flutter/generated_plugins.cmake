@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  cbl_flutter_ee
   firebase_auth
   firebase_core
 )

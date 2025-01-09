@@ -6,10 +6,13 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <cbl_flutter_ee/cbl_flutter_ee.h>
 #include <firebase_auth/firebase_auth_plugin_c_api.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
+  CblFlutterEeRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("CblFlutterEe"));
   FirebaseAuthPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FirebaseAuthPluginCApi"));
   FirebaseCorePluginCApiRegisterWithRegistrar(

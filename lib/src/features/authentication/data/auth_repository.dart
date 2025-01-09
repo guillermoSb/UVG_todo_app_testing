@@ -42,17 +42,27 @@ class AuthRepository {
 
   /// Sign out.
   Future<void> signOut() async {
-    throw UnimplementedError();
+    await _auth.signOut();
+  }
+
+  /// Convert firebase user to domain user.
+  FirebaseAppUser? _appUserFromFirebase(User? user) {
+    if (user == null) {
+      return null;
+    }
+    return FirebaseAppUser(user);
   }
 
   /// Stream to expose auth state changes.
   Stream<AppUser?> get authStateChanges {
-    throw UnimplementedError();
+    return _auth.authStateChanges().map((user) {
+      return _appUserFromFirebase(user);
+    });
   }
 
   /// Get the current user.
   AppUser? get currentUser {
-    throw UnimplementedError();
+    return _appUserFromFirebase(_auth.currentUser);
   }
 }
 

@@ -28,6 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cbl: 3.0.0
+  cbl_flutter: 3.0.0
+  cbl_flutter_ee: ^3.0.0
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.14.0
   firebase_core: ^2.22.0
@@ -41,9 +44,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  go_router: ^13.2.2
   integration_test:
     sdk: flutter
-  go_router: ^13.2.2
   mocktail: ^1.0.3
   riverpod_generator: ^2.4.0
   rxdart: ^0.27.7
